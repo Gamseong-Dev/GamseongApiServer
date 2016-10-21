@@ -15,6 +15,7 @@ import com.highluck.gamseong.common.LibraryContainer;
 import com.highluck.gamseong.model.domain.Feed;
 import com.highluck.gamseong.model.domain.Location;
 import com.highluck.gamseong.model.value.LocationValue;
+import com.highluck.gamseong.model.value.UserValue;
 
 @Repository
 public class LocationRepository {
@@ -53,5 +54,35 @@ public class LocationRepository {
 		return entityManager.createQuery(query)
 				.setParameter("motherId", value.getId())
 				.getResultList();	
+	}
+	
+	public List<?> findByUserId(UserValue value){
+		/*
+		 * 	 (SELECT c.id 
+				FROM LOCATION c
+				WHERE c.id 
+				= (CASE WHEN a.mother_id IS NOT NULL 
+				 	THEN a.mother_id
+				 	ELSE a.id END)) AS id
+			,(SELECT c.name 
+				FROM LOCATION c
+				WHERE c.id 
+				= (CASE WHEN a.mother_id IS NOT NULL 
+				 	THEN a.mother_id
+				 	ELSE a.id END)) AS name
+		 */
+		String query = 
+				"SELECT "
+				+ " l.id,"
+				+ " l.name"
+				+ " FROM LOCATION l"
+				+ " JOIN l.feed f"
+				+ " WHERE f.userId = :userId"
+				+ " AND ( "
+				+ " GROUP BY l.id";
+	
+		return entityManager.createQuery(query)
+				.setParameter("userId", value.getId())
+				.getResultList();
 	}
 }

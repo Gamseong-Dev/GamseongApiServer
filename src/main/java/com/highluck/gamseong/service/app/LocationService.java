@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.highluck.gamseong.common.LibraryContainer;
 import com.highluck.gamseong.model.domain.Location;
 import com.highluck.gamseong.model.value.LocationValue;
+import com.highluck.gamseong.model.value.UserValue;
 import com.highluck.gamseong.repository.LocationRepository;
 
 @Service
@@ -33,5 +34,10 @@ public class LocationService {
 						.areaCodeCreateId(String.valueOf(value.getAreaCode())));
 		
 		return (ArrayList<Location>) locationRepository.findLocalCodeAllById(value);
+	}
+	
+	public ArrayList<Location> findByUserId(UserValue value){
+		
+		return (ArrayList<Location>) locationRepository.findByUserId(value);
 	}
 }

@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.highluck.gamseong.model.domain.Location;
 import com.highluck.gamseong.model.value.LocationValue;
+import com.highluck.gamseong.model.value.UserValue;
 import com.highluck.gamseong.model.web.LocationCode;
 import com.highluck.gamseong.service.app.LocationService;
+
+import io.undertow.attribute.RequestMethodAttribute;
 
 @RestController
 @RequestMapping("/location")
@@ -27,9 +30,15 @@ public class LocationController {
 		return locationService.findAreaCodeAll();
 	}
 	//areaId = ? || id = ?
- 	@RequestMapping(value = "{id}/local/code/", method = RequestMethod.GET)
+ 	@RequestMapping(value = "/{id}/local/code", method = RequestMethod.GET)
 	public ArrayList<Location> findLocalCodeAllById(@ModelAttribute LocationValue value){
 		
 		return locationService.findLocalCodeAllById(value);
 	}
+ 	
+ 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+ 	public ArrayList<Location>findByUserId(@ModelAttribute UserValue value){
+ 		
+ 		return locationService.findByUserId(value);
+ 	}
 }
