@@ -37,7 +37,7 @@ public class LocationController {
 	}
  	
  	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
- 	public ArrayList<Location>findByUserId(@ModelAttribute UserValue value){
+ 	public ArrayList<Location> findByUserId(@ModelAttribute UserValue value){
  		
  		return locationService.findByUserId(value);
  	}

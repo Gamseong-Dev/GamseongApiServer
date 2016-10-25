@@ -48,7 +48,7 @@ public class LocationRepository {
 		String query = 
 				"SELECT l "
 				+ " FROM LOCATION l "
-				+ " WHERE l.motherId IS NULL "
+				+ " WHERE l.motherId = :motherId "
 				+ " ORDER BY l.localCode ASC";
 		
 		return entityManager.createQuery(query)

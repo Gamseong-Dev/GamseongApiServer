@@ -44,7 +44,6 @@ public class Reply {
 	@Column(name="USER_ID")
 	private String userId;
 	
-	@JsonIgnore
 	@Column(name="FEED_ID")
 	private long feedId;
 	

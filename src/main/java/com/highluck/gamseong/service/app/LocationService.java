@@ -36,6 +36,7 @@ public class LocationService {
 		return (ArrayList<Location>) locationRepository.findLocalCodeAllById(value);
 	}
 	
+	@Transactional(readOnly = true)
 	public ArrayList<Location> findByUserId(UserValue value){
 		
 		return (ArrayList<Location>) locationRepository.findByUserId(value);
