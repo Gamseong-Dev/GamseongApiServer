@@ -17,7 +17,7 @@ public class ReplyRepository {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-	public List<?> findByFeedId(FeedValue value){
+	public List<?> findByFeedId(long feedId){
 		
 		String query = "SELECT r "
 				+ " FROM REPLY r "
@@ -25,7 +25,7 @@ public class ReplyRepository {
 				+ " WHERE r.feedId = :feedId ";
 		
 		return entityManager.createQuery(query)
-				 .setParameter("feedId",value.getId())
+				 .setParameter("feedId",feedId)
 				 .setMaxResults(1) 
 				 .getResultList();
 	}

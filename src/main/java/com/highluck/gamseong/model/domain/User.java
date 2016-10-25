@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -30,21 +31,25 @@ public class User {
 	@Column(name="IMAGE_URL", nullable = true)
 	private String imageUrl;
 	
-	@Basic(fetch = FetchType.LAZY)
+	@Transient
 	@Column(name="ACCOUNT_DISTINCTION_CODE")
 	private String accountDistinctionCode;
-	@Basic(fetch = FetchType.LAZY)
+	
+	@Transient
 	@Column(name = "STATUS_CODE")
 	private String statusCode;
 	
+	@Transient
 	@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
 	@Column(name = "CREATION_TIMESTAMP")
 	private Timestamp creationTime;
+	
+	@Transient
 	@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
 	@Column(name = "UPDATE_TIMESTAMP", nullable = true)
 	private Timestamp updateTime;
 	
-	@Basic(fetch = FetchType.LAZY)
+	@Transient
 	@Column(name = "TOKEN_KEY")
 	private String tokenKey;
 	

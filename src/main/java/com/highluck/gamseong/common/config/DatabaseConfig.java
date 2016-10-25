@@ -1,6 +1,7 @@
 package com.highluck.gamseong.common.config;
 
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,10 +51,11 @@ public class DatabaseConfig {
 	public DataSource routingDataSource(DataSource writeDataSource, DataSource readDataSource) {
 		
 		ReplicationRoutingDataSource routingDataSource = new ReplicationRoutingDataSource(); 
-		
+
 		Map<Object, Object> dataSourceMap = new HashMap<Object, Object>();
 		
 		dataSourceMap.put("write", writeDataSource);
+		dataSourceMap.put("read", readDataSource);
 		dataSourceMap.put("read", readDataSource);
 		routingDataSource.setTargetDataSources(dataSourceMap);
 		routingDataSource.setDefaultTargetDataSource(writeDataSource); 
@@ -69,7 +71,7 @@ public class DatabaseConfig {
 	
 	@Bean(name = "entityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-
+		
 		HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
 	    hibernateJpaVendorAdapter.setDatabase(Database.MYSQL);
 	    hibernateJpaVendorAdapter.setShowSql(true);

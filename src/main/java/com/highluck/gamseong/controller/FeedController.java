@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.highluck.gamseong.model.domain.Feed;
 import com.highluck.gamseong.model.response.CommonResponse;
+import com.highluck.gamseong.model.response.FeedResponse;
 import com.highluck.gamseong.model.value.FeedValue;
 import com.highluck.gamseong.service.app.FeedService;
 
@@ -22,14 +23,14 @@ public class FeedController {
 	@Autowired
 	private FeedService feedService;
 	
-	@RequestMapping(value ="/", method = RequestMethod.GET)
+	@RequestMapping(value ="", method = RequestMethod.GET)
 	public String test(){
 		
 		return "testgoood";
 	}
 	
-	@RequestMapping(value ="/", method = RequestMethod.POST)
-	public  Callable<CommonResponse> save(@RequestBody Feed feed){
+	@RequestMapping(value ="", method = RequestMethod.POST)
+	public Callable<CommonResponse> save(@RequestBody Feed feed){
 		
 		return () -> {
 			return feedService.save(feed);	
@@ -37,26 +38,26 @@ public class FeedController {
 	}
 	
 	@RequestMapping(value ="/{id}", method = RequestMethod.GET)
-	public Callable<Feed> findById(@ModelAttribute FeedValue value){
+	public Callable<FeedResponse> findById(@ModelAttribute FeedValue value){
 		
 		return () -> {	
 			return feedService.findById(value);	
 		};
 	}
-
-	@RequestMapping(value ="/{id}/like", method = RequestMethod.GET)
-	public  Callable<CommonResponse> addLike(@ModelAttribute FeedValue value){
+	
+	@RequestMapping(value ="/location/{locationId}", method = RequestMethod.GET)
+	public Callable<ArrayList<FeedResponse>> findAllByLocationId(@ModelAttribute FeedValue value){
 		
-		return () -> {
-			return feedService.addLike(value);	
+		return () -> {	
+			return  feedService.findAllByLocationId(value);
 		};
 	}
 	
-	@RequestMapping(value ="/location/{locationId}", method = RequestMethod.GET)
-	public Callable<ArrayList<Feed>> findAllByLocationId(@ModelAttribute FeedValue value){
+	@RequestMapping(value ="/best", method = RequestMethod.GET)
+	public Callable<ArrayList<FeedResponse>> findBest(@ModelAttribute FeedValue value){
 		
 		return () -> {	
-			return feedService.findAllByLocationId(value);	
+			return feedService.findBest(value);	
 		};
 	}
 }

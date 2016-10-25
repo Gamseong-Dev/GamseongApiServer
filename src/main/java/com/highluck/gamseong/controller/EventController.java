@@ -23,23 +23,23 @@ public class EventController {
 	@Autowired
 	private EventService eventService;
 	
-	@RequestMapping(value ="/", method = RequestMethod.GET)
+	@RequestMapping(value ="", method = RequestMethod.GET)
 	public ArrayList<Event> findAllByTime(@ModelAttribute LocationValue value){
 		
 		return eventService.findAllByTime(value);
 	}
 	
-	@RequestMapping(value ="/{id}", method = RequestMethod.GET)
+	@RequestMapping(value ="/location/{id}", method = RequestMethod.GET)
 	public ArrayList<Event> findByTime(@ModelAttribute LocationValue value){
 		
 		return eventService.findByTime(value);
 	}
-	
+	/*
 	@RequestMapping(value ="/{id}/like", method = RequestMethod.GET)
 	public  Callable<CommonResponse> addLike(@PathVariable("id")int id){
 		
 		return () -> {
 			return eventService.addLike(id);	
 		};
-	}
+	}*/
 }

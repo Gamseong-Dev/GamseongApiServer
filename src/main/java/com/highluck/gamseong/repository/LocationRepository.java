@@ -78,7 +78,6 @@ public class LocationRepository {
 				+ " FROM LOCATION l"
 				+ " JOIN l.feed f"
 				+ " WHERE f.userId = :userId"
-				+ " AND ( "
 				+ " GROUP BY l.id";
 	
 		return entityManager.createQuery(query)

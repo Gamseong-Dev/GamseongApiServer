@@ -2,7 +2,10 @@ package com.highluck.gamseong.model.domain;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -41,7 +46,10 @@ public class Feed {
 	private String statusCode;
 	
 	@Column(name = "LIKE_COUNT", nullable = true)
-	private int likeCount;
+	private long likeCount;
+	@Column(name = "REPLY_COUNT", nullable = true)
+	private long replyCount;
+	
 	@Column(name="USER_ID")
 	private String userId;
 	
@@ -55,7 +63,10 @@ public class Feed {
 	@Column(name = "UPDATE_TIMESTAMP", nullable = true)
 	private Timestamp updateTime;
 	
-	private ArrayList<Reply> reply;
+	@OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "FEED_ID", referencedColumnName = "ID"
+	,insertable=true ,updatable=true)
+	private Collection<Sticker> sticker;
 	
 	public long getId() {
 		return id;
@@ -113,11 +124,11 @@ public class Feed {
 		this.updateTime = updateTime;
 	}
 	
-	public int getLikeCount() {
+	public long getLikeCount() {
 		return likeCount;
 	}
 
-	public void setLikeCount(int likeCount) {
+	public void setLikeCount(long likeCount) {
 		this.likeCount = likeCount;
 	}
 	
@@ -137,12 +148,20 @@ public class Feed {
 		this.locationId = locationId;
 	}
 
-	public ArrayList<Reply> getReply() {
-		return reply;
+	public Collection<Sticker> getSticker() {
+		return sticker;
 	}
 
-	public void setReply(ArrayList<Reply> reply) {
-		this.reply = reply;
+	public void setSticker(Collection<Sticker> sticker) {
+		this.sticker = sticker;
+	}
+
+	public long getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(long replyCount) {
+		this.replyCount = replyCount;
 	}
 
 	@Override

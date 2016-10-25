@@ -18,8 +18,8 @@ import com.highluck.gamseong.repository.AuthRepository;
 @Component
 public class FilterConfig implements Filter{
 
-	@Autowired
-	private AuthRepository authRepository;
+	//@Autowired
+	//private AuthRepository authRepository;
 	
 	@Override
 	public void init(javax.servlet.FilterConfig filterConfig) throws ServletException {

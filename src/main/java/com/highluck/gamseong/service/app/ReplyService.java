@@ -20,7 +20,7 @@ public class ReplyService {
 		if(value.getLimit() == 0) 
 			value.setLimit(value.DEFAULT_LIMIT);
 		if(value.getPageNum() != 0)
-				value.setOffset(value.getPageNum() - 1 * value.getLimit());
+				value.setOffset((value.getPageNum() - 1)* value.getLimit());
 		
 		return (ArrayList<Reply>) replyRepository.findAllByFeedId(value);
 	}

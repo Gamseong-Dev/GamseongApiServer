@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 
 import javax.persistence.OneToMany;
 
@@ -30,10 +29,10 @@ public class Location {
 	private String imageUrl;
 	@Column(name="LOCAL_CODE")
 	private int localCode;
-	
+	/*
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="location")
 	private Collection<Feed> feed;
-	
+	*/
 	public String getId() {
 		return id;
 	}
@@ -70,10 +69,10 @@ public class Location {
 	public void setLocalCode(int localCode) {
 		this.localCode = localCode;
 	}
-	public Collection<Feed> getFeed() {
+/*	public Collection<Feed> getFeed() {
 		return feed;
 	}
 	public void setFeed(Collection<Feed> feed) {
 		this.feed = feed;
-	}
+	}*/
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.highluck.gamseong.model.domain.Feed;
+import com.highluck.gamseong.model.response.FeedResponse;
 import com.highluck.gamseong.model.value.UserValue;
 import com.highluck.gamseong.service.app.FeedByUserService;
 
@@ -21,8 +22,8 @@ public class FeedByUserController {
 	@Autowired
 	private FeedByUserService userService;
 	
-	@RequestMapping(value = "" , method = RequestMethod.GET)
-	public Callable<ArrayList<Feed>>findFeedAllByUser(@ModelAttribute UserValue value){
+	@RequestMapping(value = "/{id}" , method = RequestMethod.GET)
+	public Callable<ArrayList<FeedResponse>>findFeedAllByUser(@ModelAttribute UserValue value){
 		
 		return () -> {
 			return userService.findFeedAllByUser(value);

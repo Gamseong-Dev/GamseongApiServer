@@ -6,6 +6,7 @@ public class UserValue {
 	private String locationId;
 	private int offset;
 	private int limit;
+	private int pageNum;
 	
 	public String getId() {
 		return id;
@@ -30,6 +31,12 @@ public class UserValue {
 	}
 	public void setLocationId(String locationId) {
 		this.locationId = locationId;
+	}
+	public int getPageNum() {
+		return pageNum;
+	}
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
 	}
 	
 }

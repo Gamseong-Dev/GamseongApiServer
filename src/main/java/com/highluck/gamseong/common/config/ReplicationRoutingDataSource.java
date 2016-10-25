@@ -1,6 +1,5 @@
 package com.highluck.gamseong.common.config;
 
-import java.util.Random;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.transaction.support.TransactionSynchronizationManager;

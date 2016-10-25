@@ -2,6 +2,7 @@ package com.highluck.gamseong.model.domain;
 
 import java.sql.Timestamp;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,10 +24,11 @@ public class Reply {
 	private long id;
 	@Column(name="CONTENTS")
 	private String contents;
-	@Column(name="MOTHER_ID", nullable = true)
-	private String motherId;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@Column(name="MOTHER_ID", nullable = true)
+	private long motherId;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "USER_ID", referencedColumnName = "ID"
 	,insertable=false ,updatable=false)
 	private User user;
@@ -62,10 +64,10 @@ public class Reply {
 	public void setContents(String contents) {
 		this.contents = contents;
 	}
-	public String getMotherId() {
+	public long getMotherId() {
 		return motherId;
 	}
-	public void setMotherId(String motherId) {
+	public void setMotherId(long motherId) {
 		this.motherId = motherId;
 	}
 	public User getUser() {
@@ -110,4 +112,5 @@ public class Reply {
 	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
+	
 }
