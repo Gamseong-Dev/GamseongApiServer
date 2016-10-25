@@ -13,13 +13,13 @@ import com.highluck.gamseong.model.value.LikeValue;
 import com.highluck.gamseong.service.app.LikeService;
 
 @RestController
-@RequestMapping("/like")
+@RequestMapping("/likes")
 public class LikeController {
 
 	@Autowired
 	private LikeService likeService;
 	
-	@RequestMapping(value="/feed/{feedId}/user/{userId}", method = RequestMethod.GET)
+	@RequestMapping(value="/feeds/{feedId}/users/{userId}", method = RequestMethod.GET)
 	public Callable<CommonResponse> setLike(@ModelAttribute LikeValue value){
 		
 		return () -> {

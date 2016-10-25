@@ -1,4 +1,4 @@
-package com.highluck.gamseong.repository.inter;
+package com.highluck.gamseong.repository.interfaces;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

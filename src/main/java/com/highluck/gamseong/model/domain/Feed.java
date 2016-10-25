@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "FEED")
 @org.hibernate.annotations.DynamicUpdate
@@ -50,6 +51,7 @@ public class Feed {
 	@Column(name = "REPLY_COUNT", nullable = true)
 	private long replyCount;
 	
+	@JsonIgnore
 	@Column(name="USER_ID")
 	private String userId;
 	
@@ -59,6 +61,7 @@ public class Feed {
 	@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
 	@Column(name = "CREATION_TIMESTAMP")
 	private Timestamp creationTime;
+	
 	@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
 	@Column(name = "UPDATE_TIMESTAMP", nullable = true)
 	private Timestamp updateTime;

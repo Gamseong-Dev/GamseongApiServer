@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "REPLY")
 @org.hibernate.annotations.DynamicUpdate
@@ -32,21 +33,27 @@ public class Reply {
 	@JoinColumn(name = "USER_ID", referencedColumnName = "ID"
 	,insertable=false ,updatable=false)
 	private User user;
+	
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "FEED_ID", referencedColumnName = "ID"
 	,insertable=false ,updatable=false)
 	private Feed feed;
 	
+	@JsonIgnore
 	@Column(name="USER_ID")
 	private String userId;
+	
+	@JsonIgnore
 	@Column(name="FEED_ID")
 	private long feedId;
 	
+	@JsonIgnore
 	@Column(name = "STATUS_CODE", nullable = true)
 	private String statusCode;
 	
 	@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
-	@Column(name = "CREATION_TIMESTAMP")
+	@Column(name = "CREATION_TIMESTAMP", nullable = true)
 	private Timestamp creationTime;
 	@JsonFormat(pattern="yyyy-MM-dd hh:mm:ss")
 	@Column(name = "UPDATE_TIMESTAMP", nullable = true)

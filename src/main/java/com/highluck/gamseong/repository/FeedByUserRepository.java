@@ -27,6 +27,7 @@ public class FeedByUserRepository {
 				+ " JOIN FETCH f.user "
 				+ " JOIN FETCH f.location "
 				+ " WHERE f.user.id = :id "
+				+ " AND f.statusCode =  :status"	
 				);
 		
 		if(value.getLocationId() != null && !value.getLocationId().equals("")){
@@ -37,6 +38,7 @@ public class FeedByUserRepository {
 			list= entityManager.createQuery(query.toString())
 					.setParameter("locationId",value.getLocationId())
 					.setParameter("id", value.getId())
+					.setParameter("status", "Y")
 					.setFirstResult(value.getOffset())
 					.setMaxResults(value.getLimit()) 
 					.getResultList();	
@@ -44,6 +46,7 @@ public class FeedByUserRepository {
 		else{
 			list= entityManager.createQuery(query.toString())
 					.setParameter("id", value.getId())
+					.setParameter("status", "Y")
 					.setFirstResult(value.getOffset())
 					.setMaxResults(value.getLimit()) 
 					.getResultList();	

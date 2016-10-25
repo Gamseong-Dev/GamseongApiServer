@@ -27,12 +27,14 @@ public class FeedRepository {
 				+ " JOIN FETCH f.user "
 				+ " JOIN FETCH f.location "				
 				+ " WHERE f.location.id = :locationId "
-					+ " OR f.location.motherId = :locationId "
+					+ " OR f.location.motherId = :locationId"
+					+ " AND f.statusCode =  :status"
 				+ " ORDER BY f.creationTime DESC";
 			
 		
 		return entityManager.createQuery(query)
 					 .setParameter("locationId",value.getLocationId())	
+					 .setParameter("status", "Y")
 					 .setFirstResult(value.getOffset())
 				     .setMaxResults(value.getLimit()) 
 					 .getResultList();	
@@ -45,16 +47,19 @@ public class FeedRepository {
 				+ " FROM FEED f "
 				+ " JOIN FETCH f.user "
 				+ " JOIN FETCH f.location "
-				+ " WHERE f.id = :id ";
+				+ " WHERE f.id = :id "
+					+ " AND f.statusCode =  :status";
 		
 		return (Feed) entityManager.createQuery(query)
 				 .setParameter("id",value.getId())
+				 .setParameter("status", "Y")
 				 .getSingleResult();
 	}
 	
 	public void save(Feed feed){
 		
 		feed.setCreationTime(Timestamp.valueOf(LocalDateTime.now()));
+		feed.setStatusCode("Y");
 		entityManager.persist(feed);
 		feed.getSticker().forEach(s -> {
 			s.setFeedId(feed.getId());
@@ -83,11 +88,13 @@ public class FeedRepository {
 				+ " JOIN FETCH f.location "	
 				+ " WHERE f.creationTime >= :fromTime"
 				+ " AND f.creationTime <= :toTime"
+				+ " AND f.statusCode =  :status"
 				+ " ORDER BY f.likeCount DESC";
 		
 		return  entityManager.createQuery(query)
 				 .setParameter("fromTime",value.getFromTime())	
 				 .setParameter("toTime",value.getToTime())	
+				 .setParameter("status", "Y")
 			     .setMaxResults(value.getLimit()) 
 				 .getResultList();
 	}

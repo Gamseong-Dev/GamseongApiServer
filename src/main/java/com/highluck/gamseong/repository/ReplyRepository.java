@@ -1,5 +1,7 @@
 package com.highluck.gamseong.repository;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -42,5 +44,14 @@ public class ReplyRepository {
 				 .setFirstResult(value.getOffset())
 			     .setMaxResults(value.getLimit()) 
 				 .getResultList();	
+	}
+	
+	public void save(Reply reply){
+		
+		reply.setCreationTime(Timestamp.valueOf(LocalDateTime.now()));
+		reply.setStatusCode("Y");
+		entityManager.persist(reply);
+		entityManager.flush();
+		
 	}
 }

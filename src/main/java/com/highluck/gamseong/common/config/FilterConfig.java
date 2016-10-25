@@ -7,19 +7,25 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.highluck.gamseong.model.value.AuthValue;
-import com.highluck.gamseong.repository.AuthRepository;
+import com.highluck.gamseong.model.response.CommonResponse;
+
 
 @Component
 public class FilterConfig implements Filter{
 
 	//@Autowired
 	//private AuthRepository authRepository;
+	CommonResponse successRes;
+	
+	public FilterConfig() {}
+		// TODO Auto-generated constructor stub
+	public void chainResponse(CommonResponse successRes){
+		this.successRes = successRes;
+	}
 	
 	@Override
 	public void init(javax.servlet.FilterConfig filterConfig) throws ServletException {
@@ -31,6 +37,13 @@ public class FilterConfig implements Filter{
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
+		
+		HttpServletResponse req = (HttpServletResponse) response;
+        req.setHeader("Access-Control-Allow-Origin", "*");
+        req.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT");
+        req.setHeader("Access-Control-Max-Age", "3600");
+        req.setHeader("Access-Control-Allow-Headers", "x-requested-with, origin, content-type, accept");
+		
 	/*	
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		AuthValue value = new AuthValue();
@@ -40,7 +53,9 @@ public class FilterConfig implements Filter{
 		if(1 > authRepository.authByToken(value)) 
 			response.getWriter().write("인증실패");
 		*/
-		chain.doFilter(request, response);
+		if(successRes != null) req.getWriter().print(successRes);
+		
+		chain.doFilter(request, req);
 	}
 
 	@Override
@@ -48,5 +63,4 @@ public class FilterConfig implements Filter{
 		// TODO Auto-generated method stub
 		
 	}
-
 }

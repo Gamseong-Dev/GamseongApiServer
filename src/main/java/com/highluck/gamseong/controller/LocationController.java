@@ -18,7 +18,7 @@ import com.highluck.gamseong.service.app.LocationService;
 import io.undertow.attribute.RequestMethodAttribute;
 
 @RestController
-@RequestMapping("/location")
+@RequestMapping("/locations")
 public class LocationController {
 	
 	@Autowired
@@ -36,7 +36,7 @@ public class LocationController {
 		return locationService.findLocalCodeAllById(value);
 	}
  	
- 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+ 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
  	public ArrayList<Location>findByUserId(@ModelAttribute UserValue value){
  		
  		return locationService.findByUserId(value);

@@ -16,7 +16,7 @@ import com.highluck.gamseong.model.value.UserValue;
 import com.highluck.gamseong.service.app.FeedByUserService;
 
 @RestController
-@RequestMapping("/feed/user")
+@RequestMapping("/feeds/users")
 public class FeedByUserController {
 	
 	@Autowired

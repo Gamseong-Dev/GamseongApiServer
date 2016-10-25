@@ -17,7 +17,7 @@ import com.highluck.gamseong.model.value.FeedValue;
 import com.highluck.gamseong.service.app.FeedService;
 
 @RestController
-@RequestMapping("/feed")
+@RequestMapping("/feeds")
 public class FeedController {
 
 	@Autowired
@@ -45,7 +45,7 @@ public class FeedController {
 		};
 	}
 	
-	@RequestMapping(value ="/location/{locationId}", method = RequestMethod.GET)
+	@RequestMapping(value ="/locations/{locationId}", method = RequestMethod.GET)
 	public Callable<ArrayList<FeedResponse>> findAllByLocationId(@ModelAttribute FeedValue value){
 		
 		return () -> {	

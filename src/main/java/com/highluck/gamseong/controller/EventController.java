@@ -17,7 +17,7 @@ import com.highluck.gamseong.model.value.LocationValue;
 import com.highluck.gamseong.service.app.EventService;
 
 @RestController
-@RequestMapping("/event")
+@RequestMapping("/events")
 public class EventController {
 	
 	@Autowired
@@ -29,7 +29,7 @@ public class EventController {
 		return eventService.findAllByTime(value);
 	}
 	
-	@RequestMapping(value ="/location/{id}", method = RequestMethod.GET)
+	@RequestMapping(value ="/locations/{id}", method = RequestMethod.GET)
 	public ArrayList<Event> findByTime(@ModelAttribute LocationValue value){
 		
 		return eventService.findByTime(value);

@@ -10,8 +10,8 @@ import com.highluck.gamseong.model.domain.Feed;
 import com.highluck.gamseong.model.domain.LikeInfo;
 import com.highluck.gamseong.model.value.FeedValue;
 import com.highluck.gamseong.model.value.LikeValue;
-import com.highluck.gamseong.repository.inter.FeedInterface;
-import com.highluck.gamseong.repository.inter.LikeInterface;
+import com.highluck.gamseong.repository.interfaces.FeedInterface;
+import com.highluck.gamseong.repository.interfaces.LikeInterface;
 
 @Repository
 public class LikeRepository {

@@ -39,7 +39,7 @@ public class LocationRepository {
 				+ " ORDER BY l.localCode ASC";
 		
 		return entityManager.createQuery(query)
-						.setParameter("motherId", null)
+						.setParameter("motherId", "")
 						.getResultList();	
 	}
 	
@@ -48,7 +48,7 @@ public class LocationRepository {
 		String query = 
 				"SELECT l "
 				+ " FROM LOCATION l "
-				+ " WHERE l.motherId = :motherId "
+				+ " WHERE l.motherId IS NULL "
 				+ " ORDER BY l.localCode ASC";
 		
 		return entityManager.createQuery(query)

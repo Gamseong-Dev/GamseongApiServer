@@ -38,14 +38,4 @@ public class JsonConfig extends WebMvcConfigurerAdapter{
 
 		converters.add(jacksonMessageConverter);
 	}
-/*
-	@Bean
-    public ObjectMapper objectMapper() {
-
-        return Jackson2ObjectMapperBuilder
-        		.json().featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-        		.modules(new JavaTimeModule()).build()
-        		.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-        		.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
-    }*/
 }
