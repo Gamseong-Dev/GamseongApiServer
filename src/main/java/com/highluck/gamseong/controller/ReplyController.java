@@ -5,6 +5,7 @@ import java.util.concurrent.Callable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,6 +36,18 @@ public class ReplyController {
 	public CommonResponse save(@RequestBody Reply reply){
 		
 		return replyService.save(reply);	
+	}
+	
+	@RequestMapping(value ="", method = RequestMethod.PUT)
+	public CommonResponse set(@RequestBody Reply reply){
+		
+		return replyService.set(reply);	
+	}
+	
+	@RequestMapping(value ="", method = RequestMethod.DELETE)
+	public CommonResponse delete(@PathVariable long id){
+		
+		return replyService.delete(id);	
 	}
 	
 }

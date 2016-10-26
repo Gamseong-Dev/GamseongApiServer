@@ -19,6 +19,8 @@ public class EventService {
 
 	@Autowired
 	private EventRepository eventRepository;
+	@Autowired
+	private CommonResponse commonResponse;
 	
 	@Transactional(readOnly = true)
 	public ArrayList<Event> findByTime(LocationValue value){
@@ -44,12 +46,10 @@ public class EventService {
 
 	@Transactional(readOnly = false)
 	public CommonResponse addLike(int id){
+	
+		eventRepository.addLike(id);	
+		commonResponse.setResult(commonResponse.SUCCESS);;
 		
-		CommonResponse response = new CommonResponse();
-		eventRepository.addLike(id);
-		
-		response.setResult(response.SUCCESS);;
-		
-		return response;
+		return commonResponse;
 	}
 }

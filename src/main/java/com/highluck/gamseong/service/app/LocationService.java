@@ -41,4 +41,12 @@ public class LocationService {
 		
 		return (ArrayList<Location>) locationRepository.findByUserId(value);
 	}
+	
+	@Transactional(readOnly = true)
+	public Location findByName(String address){
+		
+		String[] location = address.split("[ ]");
+		
+		return locationRepository.findByName(location[0]);
+	}
 }

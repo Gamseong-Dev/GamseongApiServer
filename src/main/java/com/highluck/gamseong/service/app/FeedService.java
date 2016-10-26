@@ -28,6 +28,8 @@ public class FeedService {
 	private ReplyRepository replyRepository;
 	@Autowired
 	private LikeRepository likeRepository;
+	@Autowired
+	private CommonResponse commonResponse;
 	
 	@Transactional(readOnly = true)
 	public ArrayList<FeedResponse> findAllByLocationId(FeedValue value){
@@ -66,12 +68,10 @@ public class FeedService {
 	@Transactional(readOnly = false)
 	public CommonResponse save(Feed feed){
 	
-		CommonResponse response = new CommonResponse();	
-		feedRepository.save(feed);
+		feedRepository.save(feed);	
+		commonResponse.setResult(commonResponse.SUCCESS);;
 		
-		response.setResult(response.SUCCESS);;
-		
-		return response;
+		return commonResponse;
 	}
 	
 	@Transactional(readOnly = true)
@@ -95,5 +95,23 @@ public class FeedService {
 		});
 		
 		return response;
+	}
+	
+	@Transactional(readOnly =false)
+	public CommonResponse set(Feed feed){
+		
+		feedRepository.set(feed);
+		commonResponse.setResult(commonResponse.SUCCESS);
+		
+		return commonResponse;
+	}
+	
+	@Transactional(readOnly =false)
+	public CommonResponse delete(long id){
+		
+		feedRepository.delete(id);
+		commonResponse.setResult(commonResponse.SUCCESS);
+		
+		return commonResponse;
 	}
 }

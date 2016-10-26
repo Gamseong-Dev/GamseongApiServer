@@ -1,5 +1,8 @@
 package com.highluck.gamseong.model.response;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CommonResponse {
 
 	public final static String SUCCESS = "success";

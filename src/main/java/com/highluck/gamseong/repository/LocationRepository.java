@@ -16,12 +16,15 @@ import com.highluck.gamseong.model.domain.Feed;
 import com.highluck.gamseong.model.domain.Location;
 import com.highluck.gamseong.model.value.LocationValue;
 import com.highluck.gamseong.model.value.UserValue;
+import com.highluck.gamseong.repository.interfaces.LocationInterface;
 
 @Repository
 public class LocationRepository {
 
 	@PersistenceContext
 	private EntityManager entityManager;
+	@Autowired
+	private LocationInterface locationInterface;
 
 	@Transactional(readOnly=false)
 	public void save(Location location){
@@ -54,6 +57,21 @@ public class LocationRepository {
 		return entityManager.createQuery(query)
 				.setParameter("motherId", value.getId())
 				.getResultList();	
+	}
+	
+	public Location findByName(String name){
+		/*
+		 * SELECT *
+FROM LOCATION 
+WHERE mother_id =
+(SELECT id
+FROM LOCATION
+WHERE name LIKE "%부산%"
+AND mother_id = "")
+AND name = "동구"
+		 */
+		
+		return locationInterface.findByName(name);
 	}
 	
 	public List<?> findByUserId(UserValue value){

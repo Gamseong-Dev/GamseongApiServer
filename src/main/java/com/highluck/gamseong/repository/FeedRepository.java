@@ -8,16 +8,20 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.highluck.gamseong.model.domain.Feed;
 import com.highluck.gamseong.model.value.FeedValue;
+import com.highluck.gamseong.repository.interfaces.FeedInterface;
 
 @Repository
 public class FeedRepository {
 
 	@PersistenceContext
 	private EntityManager entityManager;
+	@Autowired
+	private FeedInterface feedInterface;
 	
 	public List<?> findAllByLocationId(FeedValue value){
 		
@@ -77,6 +81,19 @@ public class FeedRepository {
 		entityManager.createQuery(query)
 					.setParameter("id", value.getId());
 			
+	}
+	
+	public void set(Feed value){
+		
+		Feed feed = feedInterface.findById(value.getId());
+		feed.setContents(value.getContents());
+		feed.setSticker(value.getSticker());
+	}
+	
+	public void delete(long id){
+		
+		Feed feed = feedInterface.findById(id);
+		feed.setStatusCode("N");
 	}
 	
 	public List<Feed> findBest(FeedValue value){

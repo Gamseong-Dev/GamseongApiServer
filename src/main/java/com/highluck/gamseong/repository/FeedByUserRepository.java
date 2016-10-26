@@ -56,5 +56,4 @@ public class FeedByUserRepository {
 		
 		return list;
 	}
-
 }

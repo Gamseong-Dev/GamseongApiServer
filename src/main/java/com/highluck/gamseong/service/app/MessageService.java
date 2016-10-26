@@ -16,15 +16,16 @@ public class MessageService {
 	
 	@Autowired
 	private MessageRepository messageRepository;
+	@Autowired
+	private CommonResponse commonResponse;
 
 	@Transactional(readOnly = false)
 	public CommonResponse save(Message message){
 		
-		CommonResponse response = new CommonResponse();
 		messageRepository.save(message);
-		response.setResult(response.SUCCESS);
+		commonResponse.setResult(commonResponse.SUCCESS);
 		
-		return response;
+		return commonResponse;
 	}
 	
 	@Transactional(readOnly = true)

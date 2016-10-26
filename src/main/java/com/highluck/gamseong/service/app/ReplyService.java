@@ -16,6 +16,8 @@ public class ReplyService {
 
 	@Autowired
 	private ReplyRepository replyRepository;
+	@Autowired
+	private CommonResponse commonResponse;
 	
 	@Transactional(readOnly=true)
 	public ArrayList<Reply> findAllByFeedId(FeedValue value){	
@@ -31,11 +33,27 @@ public class ReplyService {
 	@Transactional(readOnly=false)
 	public CommonResponse save(Reply reply){
 		
-		CommonResponse response = new CommonResponse();
-		
 		replyRepository.save(reply);
-		response.setResult(response.SUCCESS);
+		commonResponse.setResult(commonResponse.SUCCESS);
 		
-		return response;
+		return commonResponse;
+	}
+	
+	@Transactional(readOnly = false)
+	public CommonResponse set(Reply value){
+		
+		replyRepository.set(value);
+		commonResponse.setResult(commonResponse.SUCCESS);
+		
+		return commonResponse;
+	}
+	
+	@Transactional(readOnly = false)
+	public CommonResponse delete(long id){
+		
+		replyRepository.delete(id);
+		commonResponse.setResult(commonResponse.SUCCESS);
+		
+		return commonResponse;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.concurrent.Callable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,6 +44,18 @@ public class FeedController {
 		return () -> {	
 			return feedService.findById(value);	
 		};
+	}
+	
+	@RequestMapping(value ="/{id}", method = RequestMethod.PUT)
+	public CommonResponse set(@RequestBody Feed feed){
+		
+		return feedService.set(feed);
+	}
+	
+	@RequestMapping(value ="/{id}", method = RequestMethod.DELETE)
+	public CommonResponse delete(@PathVariable long id){
+		
+		return feedService.delete(id);	
 	}
 	
 	@RequestMapping(value ="/locations/{locationId}", method = RequestMethod.GET)
