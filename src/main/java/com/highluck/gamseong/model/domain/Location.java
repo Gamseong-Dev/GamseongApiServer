@@ -26,6 +26,8 @@ public class Location {
 	private String motherId;
 	@Column(name="NAME")
 	private String name;
+	@Column(name="MOTHER_NAME", nullable = true)
+	private String motherName;
 	@Column(name="DESCRIPTION", nullable = true)
 	private String description;
 	@Column(name="IMAGE_URL", nullable = true)
@@ -78,5 +80,11 @@ public class Location {
 	}
 	public void setFeed(Collection<Feed> feed) {
 		this.feed = feed;
+	}
+	public String getMotherName() {
+		return motherName;
+	}
+	public void setMotherName(String motherName) {
+		this.motherName = motherName;
 	}
 }

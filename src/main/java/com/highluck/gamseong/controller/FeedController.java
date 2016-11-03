@@ -3,6 +3,8 @@ package com.highluck.gamseong.controller;
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.highluck.gamseong.model.domain.Feed;
 import com.highluck.gamseong.model.response.CommonResponse;
 import com.highluck.gamseong.model.response.FeedResponse;
+import com.highluck.gamseong.model.value.FeedPostValue;
 import com.highluck.gamseong.model.value.FeedValue;
 import com.highluck.gamseong.service.app.FeedService;
 
@@ -31,10 +34,11 @@ public class FeedController {
 	}
 	
 	@RequestMapping(value ="", method = RequestMethod.POST)
-	public Callable<CommonResponse> save(@RequestBody Feed feed){
+	public Callable<CommonResponse> save(@RequestBody FeedPostValue value, HttpServletRequest request){
 		
 		return () -> {
-			return feedService.save(feed);	
+			value.setPath(request.getSession().getServletContext().getRealPath("/"));	
+			return feedService.save(value);	
 		};
 	}
 	

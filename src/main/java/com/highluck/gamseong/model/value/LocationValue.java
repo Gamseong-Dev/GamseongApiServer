@@ -12,6 +12,8 @@ public class LocationValue {
 	private Timestamp toTime;
 	private Timestamp fromTime;
 	private int limit;
+	private String area;
+	private String local;
 	
 	public String getId() {
 		return id;
@@ -61,4 +63,17 @@ public class LocationValue {
 	public void setLimit(int limit) {
 		this.limit = limit;
 	}
+	public String getArea() {
+		return area;
+	}
+	public void setArea(String area) {
+		this.area = area;
+	}
+	public String getLocal() {
+		return local;
+	}
+	public void setLocal(String local) {
+		this.local = local;
+	}
+	
 }

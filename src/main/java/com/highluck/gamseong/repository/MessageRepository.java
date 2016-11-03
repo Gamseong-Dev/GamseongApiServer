@@ -26,12 +26,25 @@ public class MessageRepository {
 	public void save(Message message){
 		
 		message.setSendTime(Timestamp.valueOf(LocalDateTime.now()));
+		message.setStatus("Y");
 		entityManager.persist(message);
 		entityManager.flush();
 	}
 	
 	public ArrayList<Message> findAllByReciveUserIdAndStatus(MessageValue value){
-		return messageInterface.findAllByReciveUserIdAndStatus(value.getReciveUserId(), "Y");
+		String query = 
+				"SELECT m "
+				+ " FROM Message m "
+				+ " JOIN FETCH m.reciveUser "
+				+ " WHERE m.reciveUser.id = :userId "
+					+ "	AND m.status = :status"
+				+ " ORDER BY m.creationTime DESC";
+			
+		
+		return (ArrayList<Message>) entityManager.createQuery(query)
+					 .setParameter("userId",value.getReciveUserId())	
+					 .setParameter("status", "Y")
+					 .getResultList();	
 	}
 	
 	public ArrayList<Message> findAllBySendUserIdAndStatus(MessageValue value){

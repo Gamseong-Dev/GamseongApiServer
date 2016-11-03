@@ -13,7 +13,7 @@ public interface MessageInterface extends CrudRepository<Message, Long>{
 
 	ArrayList<Message> findAllBySendUserIdAndStatus(String sendUserId, String status);
 	
-	ArrayList<Message> findAllByReciveUserIdAndStatus(String reciveUserId, String status);
+	ArrayList<Message> findAllByStatusAndReciveUserId(String status, String reciveUserId);
 	
 	Message findById(long id);
 }

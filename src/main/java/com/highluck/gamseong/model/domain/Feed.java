@@ -51,7 +51,6 @@ public class Feed {
 	@Column(name = "REPLY_COUNT", nullable = true)
 	private long replyCount;
 	
-	@JsonIgnore
 	@Column(name="USER_ID")
 	private String userId;
 	
@@ -70,6 +69,11 @@ public class Feed {
 	@JoinColumn(name = "FEED_ID", referencedColumnName = "ID"
 	,insertable=true ,updatable=true)
 	private Collection<Sticker> sticker;
+	
+	@Column(nullable = true)
+	private String address;
+	@Column(name="IMG_URL",nullable = true)
+	private String imgUrl;
 	
 	public long getId() {
 		return id;
@@ -165,6 +169,22 @@ public class Feed {
 
 	public void setReplyCount(long replyCount) {
 		this.replyCount = replyCount;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 
 	@Override

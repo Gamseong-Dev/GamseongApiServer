@@ -1,5 +1,6 @@
 package com.highluck.gamseong.service.app;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.highluck.gamseong.common.LibraryContainer;
 import com.highluck.gamseong.model.domain.Feed;
 import com.highluck.gamseong.model.domain.Reply;
 import com.highluck.gamseong.model.response.CommonResponse;
 import com.highluck.gamseong.model.response.FeedResponse;
+import com.highluck.gamseong.model.value.FeedPostValue;
 import com.highluck.gamseong.model.value.FeedValue;
 import com.highluck.gamseong.repository.FeedRepository;
 import com.highluck.gamseong.repository.LikeRepository;
@@ -30,6 +33,8 @@ public class FeedService {
 	private LikeRepository likeRepository;
 	@Autowired
 	private CommonResponse commonResponse;
+	@Autowired
+	private LibraryContainer libraryContainer;
 	
 	@Transactional(readOnly = true)
 	public ArrayList<FeedResponse> findAllByLocationId(FeedValue value){
@@ -64,12 +69,19 @@ public class FeedService {
 		
 		return response;	
 	}
-	
+		
 	@Transactional(readOnly = false)
-	public CommonResponse save(Feed feed){
-	
-		feedRepository.save(feed);	
-		commonResponse.setResult(commonResponse.SUCCESS);;
+	public CommonResponse save(FeedPostValue value) throws IOException{
+		
+		if(value.getSourceFile() != null){
+			
+			value.getFeed().setImgUrl(
+					libraryContainer.getFileUpload().upload(value.getSourceFile(), value.getPath()));
+			
+		}
+		
+		feedRepository.save(value.getFeed());	
+		commonResponse.setResult(commonResponse.SUCCESS);
 		
 		return commonResponse;
 	}

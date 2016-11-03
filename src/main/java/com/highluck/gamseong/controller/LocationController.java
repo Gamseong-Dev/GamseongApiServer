@@ -1,6 +1,7 @@
 package com.highluck.gamseong.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,14 @@ public class LocationController {
  	@RequestMapping(value = "/address/{address}", method = RequestMethod.GET)
  	public Location findByName(@PathVariable String address){
  		
- 		return locationService.findByName(address);
+ 		return locationService.findByAddress(address);
+ 	}
+ 	
+ 	@RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+ 	public Callable<List<Location>> findByNameContaining(@PathVariable String name){
+ 		
+ 		return () -> {
+ 			return locationService.findByNameContaining(name);
+ 		};
  	}
 }

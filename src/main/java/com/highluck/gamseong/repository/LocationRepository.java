@@ -59,19 +59,24 @@ public class LocationRepository {
 				.getResultList();	
 	}
 	
-	public Location findByName(String name){
-		/*
-		 * SELECT *
-FROM LOCATION 
-WHERE mother_id =
-(SELECT id
-FROM LOCATION
-WHERE name LIKE "%부산%"
-AND mother_id = "")
-AND name = "동구"
-		 */
+	public Location findByAddress(LocationValue value){
 		
-		return locationInterface.findByName(name);
+		String query = 
+				"SELECT l "
+				+ " FROM LOCATION l"
+				+ " WHERE l.motherId = "
+					+ " ( SELECT o "
+						+ " FROM LOCATION o "
+						+ " WHERE o.name LIKE :area||'%'"
+						+ " AND o.motherId = :motherId "
+						+ ")"
+				+ " AND l.name = :local";
+		
+		return (Location) entityManager.createQuery(query)
+				.setParameter("area", value.getArea())
+				.setParameter("local", value.getLocal())
+				.setParameter("motherId", "")
+				.getSingleResult();
 	}
 	
 	public List<?> findByUserId(UserValue value){
@@ -101,5 +106,10 @@ AND name = "동구"
 		return entityManager.createQuery(query)
 				.setParameter("userId", value.getId())
 				.getResultList();
+	}
+	
+	public List<Location> findByNameContaining(String name){
+		
+		return locationInterface.findByNameContaining(name);
 	}
 }

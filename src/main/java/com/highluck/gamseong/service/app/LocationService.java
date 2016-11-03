@@ -1,6 +1,7 @@
 package com.highluck.gamseong.service.app;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,10 +44,18 @@ public class LocationService {
 	}
 	
 	@Transactional(readOnly = true)
-	public Location findByName(String address){
+	public Location findByAddress(String address){
 		
 		String[] location = address.split("[ ]");
-		
-		return locationRepository.findByName(location[0]);
+		LocationValue value = new LocationValue();
+		value.setArea(location[0].substring(0, 2));
+		value.setLocal(location[1]);
+		System.out.println(value.getArea());
+		return locationRepository.findByAddress(value);
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Location> findByNameContaining(String name){
+		return locationRepository.findByNameContaining(name);
 	}
 }

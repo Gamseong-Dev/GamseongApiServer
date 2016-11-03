@@ -19,12 +19,12 @@ public class Message {
 	@Column(updatable = false, nullable = false, name ="ID")
 	private long id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "SEND_USER_ID", referencedColumnName = "ID"
 	,insertable=false ,updatable=false)
 	private User sendUser;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "RECIVE_USER_ID", referencedColumnName = "ID"
 	,insertable=false ,updatable=false)
 	private User reciveUser;
