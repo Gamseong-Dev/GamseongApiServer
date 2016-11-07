@@ -65,7 +65,7 @@ public class LikeRepository {
 	public long findCountByFeedId(long feedId){
 		
 		String query = 
-				"SELECT COUNT(l.id)"
+				"SELECT COUNT(l)"
 				+ " FROM LIKE_INFO l"
 				+ " WHERE l.feedId = :feedId "
 				+ " AND l.status = :status ";

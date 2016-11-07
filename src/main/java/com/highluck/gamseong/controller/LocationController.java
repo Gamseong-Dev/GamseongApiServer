@@ -26,7 +26,19 @@ public class LocationController {
 	
 	@Autowired
 	private LocationService locationService;
-
+	
+	@RequestMapping(value = "/code", method = RequestMethod.GET)
+	public ArrayList<Location> findAll(){
+		
+		return locationService.findAll();
+	}
+	
+	@RequestMapping(value = "/best", method = RequestMethod.GET)
+	public ArrayList<Location> findBest(@ModelAttribute LocationValue value){
+		
+		return locationService.findBest(value);
+	}
+	
 	@RequestMapping(value = "/area/code", method = RequestMethod.GET)
 	public ArrayList<Location> findAreaCodeAll(){
 		

@@ -1,5 +1,7 @@
 package com.highluck.gamseong.service.app;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.highluck.gamseong.common.LibraryContainer;
+import com.highluck.gamseong.model.domain.Event;
 import com.highluck.gamseong.model.domain.Location;
 import com.highluck.gamseong.model.value.LocationValue;
 import com.highluck.gamseong.model.value.UserValue;
@@ -20,6 +23,16 @@ public class LocationService {
 	private LocationRepository locationRepository;
 	@Autowired 
 	private LibraryContainer libraryContainer;
+	
+	public ArrayList<Location> findAll(){
+		
+		ArrayList<Location> list = (ArrayList<Location>) locationRepository.findAll();
+		list.forEach(s -> {
+			s.setName(s.getMotherName() + " " + s.getName());
+		});
+		
+		return list;
+	}
 	
 	@Transactional(readOnly = true)
 	public ArrayList<Location> findAreaCodeAll(){
@@ -52,6 +65,18 @@ public class LocationService {
 		value.setLocal(location[1]);
 		System.out.println(value.getArea());
 		return locationRepository.findByAddress(value);
+	}
+	
+	@Transactional(readOnly = true)
+	public ArrayList<Location> findBest(LocationValue value){
+		
+		value.setFromTime(Timestamp.valueOf(LocalDateTime.now().minusDays(7)));
+		value.setToTime(Timestamp.valueOf(LocalDateTime.now()));
+		
+		if(value.getLimit() == 0)
+			value.setLimit(5);
+		
+		return (ArrayList<Location>) locationRepository.findBest(value);
 	}
 	
 	@Transactional(readOnly = true)

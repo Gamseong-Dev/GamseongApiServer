@@ -38,24 +38,13 @@ public class FilterConfig implements Filter{
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		
-		HttpServletResponse req = (HttpServletResponse) response;
-        req.setHeader("Access-Control-Allow-Origin", "*");
-        req.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT");
-        req.setHeader("Access-Control-Max-Age", "3600");
-        req.setHeader("Access-Control-Allow-Headers", "x-requested-with, origin, content-type, accept");
+		HttpServletResponse respon = (HttpServletResponse) response;
+        respon.setHeader("Access-Control-Allow-Origin", "*");
+        respon.setHeader("Access-Control-Allow-Methods", "POST, GET, DELETE, PUT");
+        respon.setHeader("Access-Control-Max-Age", "3600");
+        respon.setHeader("Access-Control-Allow-Headers", "Content-Type, Content-Range, Content-Disposition, Content-Descriptionx-requested-with, origin, content-type, accept");
 		
-	/*	
-		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-		AuthValue value = new AuthValue();
-		value.setToken(httpServletRequest.getHeader("s-token"));
-		value.setId(httpServletRequest.getHeader("s-Id"));
-		
-		if(1 > authRepository.authByToken(value)) 
-			response.getWriter().write("인증실패");
-		*/
-		if(successRes != null) req.getWriter().print(successRes);
-		
-		chain.doFilter(request, req);
+		chain.doFilter(request, respon);
 	}
 
 	@Override

@@ -33,6 +33,16 @@ public class LocationRepository {
 		entityManager.flush();
 	}
 	
+	public List<?> findAll(){
+		String query = 
+				"SELECT l "
+				+ " FROM LOCATION l "
+				+ " ORDER BY l.localCode ASC";
+		
+		return entityManager.createQuery(query)
+				.getResultList();	
+	}
+	
 	public List<?> findAreaCodeAll(){
 		
 		String query = 
@@ -77,6 +87,24 @@ public class LocationRepository {
 				.setParameter("local", value.getLocal())
 				.setParameter("motherId", "")
 				.getSingleResult();
+	}
+	
+	public List<?> findBest(LocationValue value){
+		
+		String query =
+				"SELECT l"	
+				+ " FROM LOCATION l "
+				+ " JOIN l.feed f "
+				+ " WHERE f.creationTime >= :fromTime "
+					+ " AND f.creationTime <= :toTime "
+				+ " GROUP BY l.id "
+				+ " ORDER BY COUNT(f.id) DESC";
+	
+		return  entityManager.createQuery(query)
+				 .setParameter("fromTime",value.getFromTime())	
+				 .setParameter("toTime",value.getToTime())	
+			     .setMaxResults(value.getLimit()) 
+				 .getResultList();
 	}
 	
 	public List<?> findByUserId(UserValue value){

@@ -47,7 +47,7 @@ public class WebApiAutoSaveController {
 	}
 	
 	//@RequestMapping(value ="/event/info/batch", method = RequestMethod.POST)
-	@Scheduled(cron = "0 0 5 * * *") // 매일 5시 실행
+	//@Scheduled(cron = "0 0 5 * * *") // 매일 5시 실행
 	public void autoEventSaveBatch() throws ParseException{
 		webApiAutoSavelService.autoEventSaveBatch();
 	}

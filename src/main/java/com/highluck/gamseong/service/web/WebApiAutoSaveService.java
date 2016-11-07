@@ -63,24 +63,26 @@ public class WebApiAutoSaveService {
 	
 	public void autoLocalAreaCodeSave(){
 		
-		for(int i =1; i<40; i++ ){
-			if( i == 9) i = 31;
-	
-			ArrayList<LocationCode> list = HttpClientProxy
-				.getHttpClientProxy()
-				.get(libraryContainer.getPublicData().areaLocalCodeUrl(20, 1 , i), LocationCode.class);
+		for(int j=2; j<5; j++){
+			for(int i =1; i<40; i++ ){
+				if( i == 9) i = 31;
 		
-				final int y = i;
-				list.forEach( s -> {
-					
-					Location location = new Location();
-					location.setId(libraryContainer.getStringUtil().localCodeCreateId(String.valueOf(y), s.getCode()));
-					location.setName(s.getName());
-					location.setLocalCode(Integer.valueOf(s.getCode()));
-					location.setMotherId(libraryContainer.getStringUtil().areaCodeCreateId(String.valueOf(y)));
-					
-					localRepository.save(location);		
-				});
+				ArrayList<LocationCode> list = HttpClientProxy
+					.getHttpClientProxy()
+					.get(libraryContainer.getPublicData().areaLocalCodeUrl(20, j , i), LocationCode.class);
+			
+					final int y = i;
+					list.forEach( s -> {
+						
+						Location location = new Location();
+						location.setId(libraryContainer.getStringUtil().localCodeCreateId(String.valueOf(y), s.getCode()));
+						location.setName(s.getName());
+						location.setLocalCode(Integer.valueOf(s.getCode()));
+						location.setMotherId(libraryContainer.getStringUtil().areaCodeCreateId(String.valueOf(y)));
+						
+						localRepository.save(location);		
+					});
+			}
 		}
 	}
 	

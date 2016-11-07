@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.highluck.gamseong.common.annotation.HighAuth;
 import com.highluck.gamseong.model.domain.Feed;
 import com.highluck.gamseong.model.response.CommonResponse;
 import com.highluck.gamseong.model.response.FeedResponse;
@@ -27,6 +28,7 @@ public class FeedController {
 	@Autowired
 	private FeedService feedService;
 	
+	//@HighAuth
 	@RequestMapping(value ="", method = RequestMethod.GET)
 	public String test(){
 		

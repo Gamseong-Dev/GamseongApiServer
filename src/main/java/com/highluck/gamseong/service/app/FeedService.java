@@ -74,10 +74,8 @@ public class FeedService {
 	public CommonResponse save(FeedPostValue value) throws IOException{
 		
 		if(value.getSourceFile() != null){
-			
 			value.getFeed().setImgUrl(
-					libraryContainer.getFileUpload().upload(value.getSourceFile(), value.getPath()));
-			
+					libraryContainer.getFileUpload().upload(value.getSourceFile(), value.getPath()));	
 		}
 		
 		feedRepository.save(value.getFeed());	

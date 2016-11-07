@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "USER")
 @org.hibernate.annotations.DynamicUpdate
@@ -49,7 +50,7 @@ public class User {
 	@Column(name = "UPDATE_TIMESTAMP", nullable = true)
 	private Timestamp updateTime;
 	
-	@Transient
+	@JsonIgnore
 	@Column(name = "TOKEN_KEY")
 	private String tokenKey;
 	
