@@ -32,23 +32,11 @@ public class MessageRepository {
 	}
 	
 	public ArrayList<Message> findAllByReciveUserIdAndStatus(MessageValue value){
-		String query = 
-				"SELECT m "
-				+ " FROM Message m "
-				+ " JOIN FETCH m.reciveUser "
-				+ " WHERE m.reciveUser.id = :userId "
-					+ "	AND m.status = :status"
-				+ " ORDER BY m.creationTime DESC";
-			
-		
-		return (ArrayList<Message>) entityManager.createQuery(query)
-					 .setParameter("userId",value.getReciveUserId())	
-					 .setParameter("status", "Y")
-					 .getResultList();	
+		return messageInterface.findAllByReciveUserIdAndStatusOrderBySendTime(value.getReciveUserId(), "Y");
 	}
 	
 	public ArrayList<Message> findAllBySendUserIdAndStatus(MessageValue value){
-		return messageInterface.findAllBySendUserIdAndStatus(value.getSendUserId(), "Y");
+		return messageInterface.findAllBySendUserIdAndStatusOrderBySendTime(value.getSendUserId(), "Y");
 	}
 	
 	public Message findById(int id){

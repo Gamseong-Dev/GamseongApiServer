@@ -20,14 +20,14 @@ public class Message {
 	private long id;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name = "SEND_USER_ID", referencedColumnName = "ID"
-	,insertable=false ,updatable=false)
-	private User sendUser;
-	
-	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "RECIVE_USER_ID", referencedColumnName = "ID"
 	,insertable=false ,updatable=false)
 	private User reciveUser;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name = "SEND_USER_ID", referencedColumnName = "ID"
+	,insertable=false ,updatable=false)
+	private User sendUser;
 	
 	@Column(name="SEND_USER_ID")
 	private String sendUserId;

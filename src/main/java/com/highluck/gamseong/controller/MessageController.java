@@ -37,7 +37,7 @@ public class MessageController {
 		return messageService.findAllBySendUserId(value);
 	}
 	
-	@RequestMapping(value ="/recive/users/{sendUserId}", method = RequestMethod.GET)
+	@RequestMapping(value ="/recive/users/{reciveUserId}", method = RequestMethod.GET)
 	public ArrayList<Message> findAllByReciveUserId(@ModelAttribute MessageValue value){
 		return messageService.findAllByReciveUserId(value);
 	}

@@ -40,7 +40,6 @@ public class Reply {
 	,insertable=false ,updatable=false)
 	private Feed feed;
 	
-	@JsonIgnore
 	@Column(name="USER_ID")
 	private String userId;
 	

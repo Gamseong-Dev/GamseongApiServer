@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.highluck.gamseong.common.annotation.HighAuth;
 import com.highluck.gamseong.model.domain.Feed;
@@ -77,6 +79,15 @@ public class FeedController {
 		
 		return () -> {	
 			return feedService.findBest(value);	
+		};
+	}
+	
+	@RequestMapping(value = "/img", method = RequestMethod.POST)
+	public Callable<CommonResponse> fileUpload(@RequestParam("file") MultipartFile uploadfile, HttpServletRequest request){
+		
+		return () -> {
+			String path = request.getSession().getServletContext().getRealPath("/");
+			return feedService.fileUpload(uploadfile, path);
 		};
 	}
 }

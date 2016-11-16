@@ -11,9 +11,9 @@ import com.highluck.gamseong.model.domain.Message;
 @Repository
 public interface MessageInterface extends CrudRepository<Message, Long>{
 
-	ArrayList<Message> findAllBySendUserIdAndStatus(String sendUserId, String status);
+	ArrayList<Message> findAllBySendUserIdAndStatusOrderBySendTime(String sendUserId, String status);
 	
-	ArrayList<Message> findAllByStatusAndReciveUserId(String status, String reciveUserId);
+	ArrayList<Message> findAllByReciveUserIdAndStatusOrderBySendTime(String status, String reciveUserId);
 	
 	Message findById(long id);
 }

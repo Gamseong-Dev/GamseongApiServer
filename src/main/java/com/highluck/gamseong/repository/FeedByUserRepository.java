@@ -56,4 +56,9 @@ public class FeedByUserRepository {
 		
 		return list;
 	}
+	
+	/*public int feedCountByUserId(){
+		
+	
+	}*/
 }

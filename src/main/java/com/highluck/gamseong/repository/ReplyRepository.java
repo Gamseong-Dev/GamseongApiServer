@@ -28,10 +28,12 @@ public class ReplyRepository {
 		String query = "SELECT r "
 				+ " FROM REPLY r "
 				+ " JOIN FETCH r.user "
-				+ " WHERE r.feedId = :feedId ";
+				+ " WHERE r.feedId = :feedId "
+				+ "	AND r.statusCode = :status";;
 		
 		return entityManager.createQuery(query)
 				 .setParameter("feedId",feedId)
+				 .setParameter("status", "Y")
 				 .setMaxResults(1) 
 				 .getResultList();
 	}
@@ -41,10 +43,12 @@ public class ReplyRepository {
 		String query = "SELECT r "
 				+ " FROM REPLY r "
 				+ " JOIN FETCH r.user "
-				+ " WHERE r.feedId = :feedId ";
+				+ " WHERE r.feedId = :feedId "
+				+ "	AND r.statusCode = :status";
 		
 		return entityManager.createQuery(query)
 				 .setParameter("feedId",value.getId())
+				 .setParameter("status", "Y")
 				 .setFirstResult(value.getOffset())
 			     .setMaxResults(value.getLimit()) 
 				 .getResultList();	

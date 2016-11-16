@@ -22,13 +22,13 @@ public class FileUpload {
 	        String destinationFileName;
 	        do {
 	            destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + sourceFileNameExtension;
-	            fileUrl = "upload/" + destinationFileName;
+	            fileUrl = "public/" + destinationFileName;
 	            filePath = path;
 	            destinationFile = new File(filePath + fileUrl);
 	        } while (destinationFile.exists());
 	        destinationFile.getParentFile().mkdirs();
 	        sourceFile.transferTo(destinationFile);
 	      
-	        return fileUrl;
+	        return "/img/" + destinationFileName;
 	    }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.highluck.gamseong.common.LibraryContainer;
 import com.highluck.gamseong.model.domain.Feed;
@@ -62,9 +63,14 @@ public class FeedService {
 	@Transactional(readOnly = true)
 	public FeedResponse findById(FeedValue value){
 		
+		if(value.getLimit() == 0) 
+			value.setLimit(value.DEFAULT_LIMIT);
+		if(value.getPageNum() != 0)
+			value.setOffset((value.getPageNum() - 1) * value.getLimit());
+		
 		FeedResponse response = new FeedResponse();
 		response.setFeed(feedRepository.findById(value));
-		response.setReply((ArrayList<Reply>)replyRepository.findByFeedId(value.getId()));
+		response.setReply((ArrayList<Reply>)replyRepository.findAllByFeedId(value));
 		response.setUserLikeStatus(likeRepository.findCountByUserId(value.getUserId(), value.getId()));
 		
 		return response;	
@@ -122,6 +128,15 @@ public class FeedService {
 		feedRepository.delete(id);
 		commonResponse.setResult(commonResponse.SUCCESS);
 		
+		return commonResponse;
+	}
+	
+	public CommonResponse fileUpload(MultipartFile uploadfile, String path) throws IOException{
+				
+		String imgUrl = libraryContainer.getFileUpload().upload(uploadfile, path);	
+		
+		commonResponse.setResult(commonResponse.SUCCESS);
+		commonResponse.setReason(imgUrl);
 		return commonResponse;
 	}
 }

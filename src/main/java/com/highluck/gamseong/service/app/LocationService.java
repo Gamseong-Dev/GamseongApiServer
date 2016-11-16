@@ -28,7 +28,9 @@ public class LocationService {
 		
 		ArrayList<Location> list = (ArrayList<Location>) locationRepository.findAll();
 		list.forEach(s -> {
-			s.setName(s.getMotherName() + " " + s.getName());
+			if(!s.getMotherName().equals("not")){
+				s.setName(s.getMotherName() + " " + s.getName());
+			}
 		});
 		
 		return list;

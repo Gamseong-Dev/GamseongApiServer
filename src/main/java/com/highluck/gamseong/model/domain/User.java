@@ -54,6 +54,9 @@ public class User {
 	@Column(name = "TOKEN_KEY")
 	private String tokenKey;
 	
+	@Column(name = "FACEBOOK_USER")
+	private String facebookUser;
+	
 	public String getId() {
 		return id;
 	}
@@ -124,6 +127,14 @@ public class User {
 
 	public void setTokenKey(String tokenKey) {
 		this.tokenKey = tokenKey;
+	}
+
+	public String getFacebookUser() {
+		return facebookUser;
+	}
+
+	public void setFacebookUser(String facebookUser) {
+		this.facebookUser = facebookUser;
 	}
 	
 }

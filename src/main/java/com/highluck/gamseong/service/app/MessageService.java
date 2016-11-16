@@ -31,7 +31,7 @@ public class MessageService {
 	@Transactional(readOnly = true)
 	public ArrayList<Message> findAllByReciveUserId(MessageValue value){
 		
-		return messageRepository.findAllByReciveUserIdAndStatus(value);
+		return (ArrayList<Message>) messageRepository.findAllByReciveUserIdAndStatus(value);
 	}
 	
 	@Transactional(readOnly = true)

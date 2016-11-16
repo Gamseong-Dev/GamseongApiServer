@@ -108,6 +108,8 @@ public class LocationRepository {
 	}
 	
 	public List<?> findByUserId(UserValue value){
+		
+		System.out.println();
 		/*
 		 * 	 (SELECT c.id 
 				FROM LOCATION c
