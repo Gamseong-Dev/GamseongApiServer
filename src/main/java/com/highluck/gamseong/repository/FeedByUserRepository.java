@@ -34,6 +34,7 @@ public class FeedByUserRepository {
 			query.append(
 					"AND f.location.id = :locationId "
 					+ " OR f.location.motherId = :locationId "
+					+ " ORDER BY f.creationTime DESC"
 					);
 			list= entityManager.createQuery(query.toString())
 					.setParameter("locationId",value.getLocationId())
@@ -43,7 +44,9 @@ public class FeedByUserRepository {
 					.setMaxResults(value.getLimit()) 
 					.getResultList();	
 		}
-		else{
+		else{			
+			query.append(" ORDER BY f.creationTime DESC");
+			
 			list= entityManager.createQuery(query.toString())
 					.setParameter("id", value.getId())
 					.setParameter("status", "Y")
@@ -52,7 +55,6 @@ public class FeedByUserRepository {
 					.getResultList();	
 		}
 		
-		query.append(" ORDER BY f.creationTime DESC");
 		
 		return list;
 	}

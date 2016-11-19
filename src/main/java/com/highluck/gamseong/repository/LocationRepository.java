@@ -127,7 +127,8 @@ public class LocationRepository {
 		String query = 
 				"SELECT "
 				+ " l.id,"
-				+ " l.name"
+				+ " l.name,"
+				+ " l.motherId"
 				+ " FROM LOCATION l"
 				+ " JOIN l.feed f"
 				+ " WHERE f.userId = :userId"

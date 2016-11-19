@@ -94,7 +94,7 @@ public class WebApiAutoSaveService {
 			ArrayList<EventPublicData> list = HttpClientProxy
 				.getHttpClientProxy()
 				.get(libraryContainer.getPublicData()
-						.eventSearchUrlByDateAndAreaCode(100, 1, "20161021", "20161201", i), EventPublicData.class);
+						.eventSearchUrlByDateAndAreaCode(100, 1, "20161201", "20170601", i), EventPublicData.class);
 				
 				list.forEach( s -> {
 					Event event = new Event();
