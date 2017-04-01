@@ -28,13 +28,12 @@ public class FeedByUserService {
 	private LikeRepository likeRepository;
 	
 	@Transactional(readOnly = true)
-	public ArrayList<FeedResponse>findFeedAllByUser(UserValue value){
+	public ArrayList<FeedResponse>findFeedAllByUser(final UserValue value){
 		
-		if(value.getLimit() == 0) value.setLimit(FeedValue.DEFAULT_LIMIT);
 		if(value.getPageNum() != 0)
 			value.setOffset((value.getPageNum() - 1) * value.getLimit());
 		
-		ArrayList<FeedResponse> response = new ArrayList<>();
+		final ArrayList<FeedResponse> response = new ArrayList<>();
 		
 		List<Feed> list = (List<Feed>) userRepository.findAllByUserId(value);
 		

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.highluck.gamseong.common.LibraryContainer;
@@ -33,7 +34,7 @@ public class WebApiAutoSaveService {
 	private EventRepository eventRepositoy;
 	@Autowired 
 	private LibraryContainer libraryContainer;
-	
+
 	public ArrayList<LocationCode> findAll(){
 		
 		ArrayList<LocationCode> list = HttpClientProxy

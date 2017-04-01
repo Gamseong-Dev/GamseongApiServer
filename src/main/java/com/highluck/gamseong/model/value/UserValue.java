@@ -5,7 +5,7 @@ public class UserValue {
 	private String id;
 	private String locationId;
 	private int offset;
-	private int limit;
+	private int limit = 10;
 	private int pageNum;
 	
 	public String getId() {

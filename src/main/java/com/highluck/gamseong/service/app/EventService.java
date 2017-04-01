@@ -19,11 +19,10 @@ public class EventService {
 
 	@Autowired
 	private EventRepository eventRepository;
-	@Autowired
 	private CommonResponse commonResponse;
 	
 	@Transactional(readOnly = true)
-	public ArrayList<Event> findByTime(LocationValue value){
+	public ArrayList<Event> findByTime(final LocationValue value){
 		
 		value.setFromTime(Timestamp.valueOf(LocalDateTime.now()));
 		value.setToTime(Timestamp.valueOf(LocalDateTime.now().plusDays(7)));
@@ -32,7 +31,7 @@ public class EventService {
 	}
 	
 	@Transactional(readOnly = true)
-	public ArrayList<Event> findAllByTime(LocationValue value){
+	public ArrayList<Event> findAllByTime(final LocationValue value){
 		
 		value.setFromTime(Timestamp.valueOf(LocalDateTime.now()));
 		value.setToTime(Timestamp.valueOf(LocalDateTime.now().plusDays(7)));
@@ -45,11 +44,9 @@ public class EventService {
 	
 
 	@Transactional(readOnly = false)
-	public CommonResponse addLike(int id){
+	public CommonResponse addLike(final int id){
 	
 		eventRepository.addLike(id);	
-		commonResponse.setResult(commonResponse.SUCCESS);;
-		
-		return commonResponse;
+		return new CommonResponse(commonResponse.SUCCESS);
 	}
 }

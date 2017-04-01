@@ -16,8 +16,7 @@ public class AuthService {
 	
 	@Async
 	@Transactional(readOnly=true)
-	public long authByToken(AuthValue value){
-		System.out.println("--------");
+	public long authByToken(final AuthValue value){
 		return authRepository.authByToken(value);
 	}
 }

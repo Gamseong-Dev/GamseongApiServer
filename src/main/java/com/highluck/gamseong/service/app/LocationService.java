@@ -26,7 +26,7 @@ public class LocationService {
 	
 	public ArrayList<Location> findAll(){
 		
-		ArrayList<Location> list = (ArrayList<Location>) locationRepository.findAll();
+		final ArrayList<Location> list = (ArrayList<Location>) locationRepository.findAll();
 		list.forEach(s -> {
 			if(!s.getMotherName().equals("not")){
 				s.setName(s.getMotherName() + " " + s.getName());
@@ -43,7 +43,7 @@ public class LocationService {
 	}
 	
 	@Transactional(readOnly = true)
-	public ArrayList<Location> findLocalCodeAllById(LocationValue value){
+	public ArrayList<Location> findLocalCodeAllById(final LocationValue value){
 		
 		if(value.getId() == null)
 		value.setId(libraryContainer.getStringUtil()
@@ -53,24 +53,24 @@ public class LocationService {
 	}
 	
 	@Transactional(readOnly = true)
-	public ArrayList<Location> findByUserId(UserValue value){
+	public ArrayList<Location> findByUserId(final UserValue value){
 		
 		return (ArrayList<Location>) locationRepository.findByUserId(value);
 	}
 	
 	@Transactional(readOnly = true)
-	public Location findByAddress(String address){
+	public Location findByAddress(final String address){
 		
-		String[] location = address.split("[ ]");
-		LocationValue value = new LocationValue();
+		final String[] location = address.split("[ ]");
+		final LocationValue value = new LocationValue();
 		value.setArea(location[0].substring(0, 2));
 		value.setLocal(location[1]);
-		System.out.println(value.getArea());
+
 		return locationRepository.findByAddress(value);
 	}
 	
 	@Transactional(readOnly = true)
-	public ArrayList<Location> findBest(LocationValue value){
+	public ArrayList<Location> findBest(final LocationValue value){
 		
 		value.setFromTime(Timestamp.valueOf(LocalDateTime.now().minusDays(7)));
 		value.setToTime(Timestamp.valueOf(LocalDateTime.now()));
@@ -82,7 +82,7 @@ public class LocationService {
 	}
 	
 	@Transactional(readOnly = true)
-	public List<Location> findByNameContaining(String name){
+	public List<Location> findByNameContaining(final String name){
 		return locationRepository.findByNameContaining(name);
 	}
 }

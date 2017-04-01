@@ -14,17 +14,14 @@ public class LikeService {
 
 	@Autowired
 	private LikeRepository likeRepository;
-	@Autowired
 	private CommonResponse commonResponse;
 	
 	//@SuccessHigh
 	@Transactional(readOnly = false)
-	public CommonResponse setLike(LikeValue value){
+	public CommonResponse setLike(final LikeValue value){
 		
 		likeRepository.addLike(value);		
 		likeRepository.setLike(value);
-		commonResponse.setResult(commonResponse.SUCCESS);
-		
-		return commonResponse;
+		return new CommonResponse(commonResponse.SUCCESS);
 	}
 }

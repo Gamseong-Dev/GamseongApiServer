@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,13 +33,12 @@ public class FeedService {
 	private ReplyRepository replyRepository;
 	@Autowired
 	private LikeRepository likeRepository;
-	@Autowired
 	private CommonResponse commonResponse;
 	@Autowired
 	private LibraryContainer libraryContainer;
 	
 	@Transactional(readOnly = true)
-	public ArrayList<FeedResponse> findAllByLocationId(FeedValue value){
+	public ArrayList<FeedResponse> findAllByLocationId(final FeedValue value){
 		
 		if(value.getLimit() == 0) 
 			value.setLimit(value.DEFAULT_LIMIT);
@@ -53,7 +53,7 @@ public class FeedService {
 			FeedResponse feed = new FeedResponse();
 			feed.setFeed(f);
 			feed.setReply((ArrayList<Reply>)replyRepository.findByFeedId(f.getId()));
-			feed.setUserLikeStatus(likeRepository.findCountByUserId(f.getUserId(), f.getId()));
+			feed.setUserLikeStatus(likeRepository.findCountByUserId(value.getUserId(), f.getId()));
 			response.add(feed);
 		});
 		
@@ -61,7 +61,7 @@ public class FeedService {
 	}
 	
 	@Transactional(readOnly = true)
-	public FeedResponse findById(FeedValue value){
+	public FeedResponse findById(final FeedValue value){
 		
 		if(value.getLimit() == 0) 
 			value.setLimit(value.DEFAULT_LIMIT);
@@ -77,13 +77,12 @@ public class FeedService {
 	}
 		
 	@Transactional(readOnly = false)
-	public CommonResponse save(FeedPostValue value) throws IOException{
+	public CommonResponse save(final FeedPostValue value) throws IOException{
 		
 		if(value.getSourceFile() != null){
 			value.getFeed().setImgUrl(
 					libraryContainer.getFileUpload().upload(value.getSourceFile(), value.getPath()));	
 		}
-		
 		feedRepository.save(value.getFeed());	
 		commonResponse.setResult(commonResponse.SUCCESS);
 		
@@ -91,7 +90,7 @@ public class FeedService {
 	}
 	
 	@Transactional(readOnly = true)
-	public ArrayList<FeedResponse> findBest(FeedValue value){
+	public ArrayList<FeedResponse> findBest(final FeedValue value){
 		
 		if(value.getLimit() == 0) value.setLimit(5);
 		
@@ -101,7 +100,7 @@ public class FeedService {
 		ArrayList<FeedResponse> response = new ArrayList<>();
 		
 		List<Feed> list = feedRepository.findBest(value);
-		
+
 		list.forEach( f -> {
 			FeedResponse feed = new FeedResponse();
 			feed.setFeed(f);
@@ -114,29 +113,25 @@ public class FeedService {
 	}
 	
 	@Transactional(readOnly =false)
-	public CommonResponse set(Feed feed){
+	public CommonResponse set(final Feed feed){
 		
 		feedRepository.set(feed);
-		commonResponse.setResult(commonResponse.SUCCESS);
-		
-		return commonResponse;
+		return new CommonResponse(commonResponse.SUCCESS);
 	}
 	
 	@Transactional(readOnly =false)
-	public CommonResponse delete(long id){
+	public CommonResponse delete(final long id){
 		
 		feedRepository.delete(id);
-		commonResponse.setResult(commonResponse.SUCCESS);
-		
-		return commonResponse;
+		return new CommonResponse(commonResponse.SUCCESS);
 	}
 	
-	public CommonResponse fileUpload(MultipartFile uploadfile, String path) throws IOException{
+	public CommonResponse fileUpload(final MultipartFile uploadfile, final String path) throws IOException{
 				
 		String imgUrl = libraryContainer.getFileUpload().upload(uploadfile, path);	
 		
-		commonResponse.setResult(commonResponse.SUCCESS);
-		commonResponse.setReason(imgUrl);
-		return commonResponse;
+		CommonResponse response =  new CommonResponse(commonResponse.SUCCESS);
+		response.setReason(imgUrl);
+		return response;
 	}
 }

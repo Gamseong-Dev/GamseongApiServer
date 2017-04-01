@@ -66,7 +66,7 @@ public class FeedController {
 		return feedService.delete(id);	
 	}
 	
-	@RequestMapping(value ="/locations/{locationId}", method = RequestMethod.GET)
+	@RequestMapping(value ="/locations/{locationId}/users/{userId}", method = RequestMethod.GET)
 	public Callable<ArrayList<FeedResponse>> findAllByLocationId(@ModelAttribute FeedValue value){
 		
 		return () -> {	

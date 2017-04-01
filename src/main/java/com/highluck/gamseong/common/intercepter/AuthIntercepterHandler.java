@@ -37,7 +37,7 @@ public class AuthIntercepterHandler extends WebContentInterceptor{
 	    		AuthValue value = new AuthValue();
 	    		value.setToken(request.getHeader("s-token"));
 	    		value.setId(request.getHeader("s-Id"));
-	    
+	    	
 	    		if(1 > authRepository.authByToken(value)) return false;
 	    		else return super.preHandle(request, response, handler);		
 	        }

@@ -16,32 +16,29 @@ public class MessageService {
 	
 	@Autowired
 	private MessageRepository messageRepository;
-	@Autowired
 	private CommonResponse commonResponse;
 
 	@Transactional(readOnly = false)
-	public CommonResponse save(Message message){
+	public CommonResponse save(final Message message){
 		
 		messageRepository.save(message);
-		commonResponse.setResult(commonResponse.SUCCESS);
-		
-		return commonResponse;
+		return new CommonResponse(commonResponse.SUCCESS);
 	}
 	
 	@Transactional(readOnly = true)
-	public ArrayList<Message> findAllByReciveUserId(MessageValue value){
+	public ArrayList<Message> findAllByReciveUserId(final MessageValue value){
 		
 		return (ArrayList<Message>) messageRepository.findAllByReciveUserIdAndStatus(value);
 	}
 	
 	@Transactional(readOnly = true)
-	public ArrayList<Message> findAllBySendUserId(MessageValue value){
+	public ArrayList<Message> findAllBySendUserId(final MessageValue value){
 		
 		return messageRepository.findAllBySendUserIdAndStatus(value);
 	}
 	
 	@Transactional(readOnly = true)
-	public Message findById(int id){
+	public Message findById(final int id){
 		
 		return messageRepository.findById(id);
 	}

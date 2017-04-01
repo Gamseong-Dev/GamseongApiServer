@@ -64,7 +64,7 @@ public class DatabaseConfig {
 	} 
 	
 	@Bean
-	public  DataSource dataSource(DataSource replicationRoutingDataSource) {
+	public DataSource dataSource(DataSource replicationRoutingDataSource) {
 		
 		return new LazyConnectionDataSourceProxy(replicationRoutingDataSource);
 	}

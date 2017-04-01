@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.highluck.gamseong.common.annotation.HighAuth;
 import com.highluck.gamseong.model.domain.Message;
 import com.highluck.gamseong.model.response.CommonResponse;
 import com.highluck.gamseong.model.value.MessageValue;
@@ -22,6 +23,7 @@ public class MessageController {
 	@Autowired
 	private MessageService messageService;
 	
+	@HighAuth
 	@RequestMapping(value ="", method = RequestMethod.POST)
 	public CommonResponse save(@RequestBody Message message){
 		return messageService.save(message);

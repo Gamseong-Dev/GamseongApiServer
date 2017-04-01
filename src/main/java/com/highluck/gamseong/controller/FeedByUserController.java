@@ -29,5 +29,4 @@ public class FeedByUserController {
 			return userService.findFeedAllByUser(value);
 		};
 	}
-
 }

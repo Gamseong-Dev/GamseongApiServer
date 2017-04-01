@@ -30,8 +30,8 @@ public class FeedRepository {
 				+ " FROM FEED f "
 				+ " JOIN FETCH f.user "
 				+ " JOIN FETCH f.location "				
-				+ " WHERE f.location.id = :locationId "
-					+ " OR f.location.motherId = :locationId"
+				+ " WHERE (f.location.id = :locationId "
+					+ " OR f.location.motherId = :locationId)"
 					+ " AND f.statusCode =  :status"
 				+ " ORDER BY f.creationTime DESC";
 			
